@@ -1,0 +1,12 @@
+{% extends 'index.html' %}
+{% load staticfiles%}
+
+{% block content %}
+<h2 class="text-center text-uppercase text-secondary mb-0">댓글을 써주세용( ღ'ᴗ'ღ )</h2><br>
+<form method="post">
+    {% csrf_token %}
+   <center> &nbsp;  {{form}} &nbsp; 
+    <input class = "btn btn-primary" type="submit" value="댓글생성"></center>
+</form>
+
+{% endblock %}

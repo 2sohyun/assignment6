@@ -1,0 +1,20 @@
+{% extends 'index.html' %}
+{% load staticfiles%}
+
+{% block content %}
+<h2 class="text-center text-uppercase text-secondary mb-0">해시태그를 추가해주세요( ღ'ᴗ'ღ )</h2><br>
+    <div class="card">
+        <h5 class="card-header">{{ blog.title }}</h5>
+        <div class="card-body">
+        
+       <center><font color="red"> {{ error_message }}</font> </center>
+            <form method = 'POST'>
+            {% csrf_token %}
+            <center><table>
+                {{form.as_table}}
+            </table>    
+            <input class="btn btn-primary" type="submit" value="태그생성"><center>
+            </form>
+        </div>
+    </div>
+{% endblock %}

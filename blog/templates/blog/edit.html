@@ -1,0 +1,22 @@
+{% extends 'index.html' %}
+{% load staticfiles%}
+     <h2 class="text-center text-uppercase text-secondary mb-0">글을 수정해주세용( ღ'ᴗ'ღ )</h2><br>
+{% block content %}
+
+  {% for blog in blogs.all %}
+    <div class="card">
+      <h5 class="card-header">{{ blog.title }}</h5>
+ 
+      <div class="card-body">
+  
+
+        <form method="POST" enctype="multipart/form-data">
+         {% csrf_token %}
+            {{form.as_table}}
+        <button type = "submit" class="btn btn-primary">저어장</button>
+        </form>
+      </div>
+    </div>
+  {% endfor %}
+
+{% endblock %}

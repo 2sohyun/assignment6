@@ -1,0 +1,55 @@
+{% extends 'index.html' %}
+{% load staticfiles%}
+
+{% block content %}
+<h2 class="text-center text-uppercase text-secondary mb-0">list( ღ'ᴗ'ღ )</h2><br>
+ <!-- 해시태그 목록찾기 -->
+ <div class="dropdown">
+  <button class="btn btn-danger dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+    Hashtag 검색
+  </button>
+  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+    {% for hashtag in hashtags.all %}
+    <a class="dropdown-item" href="{% url 'search' hashtag.id %}">{{ hashtag.name }}</a>
+    {% endfor %}
+  
+  </div>
+</div>
+ 
+  {% for blog in blogs.all %}
+    <div class="card">
+      <h5 class="card-header">{{ blog.title }}</h5>
+      <div class="card-body">
+        <h5 class="card-title">{{ blog.body }}</h5>
+        <p class="card-text">{{ blog.pub_date }}</p>
+        
+      <!-- 이미지 보이는 곳 -->
+      {% if blog.image %}
+         <img class="card" src="{{ blog.image.url }}" alt="image" style="magin: 3rem; width: 18rem;">
+      {% endif %}
+  
+        <!-- 해시태그 목록 보이는 곳 -->
+        {% for hashtag in blog.hashtags.all %}
+          <span>{{ hashtag.name }}</span>
+        {% endfor %}
+        <br>
+        <a href="{% url 'edit' pk=blog.pk %}" class="btn btn-primary">수정</a>
+        <a href="{% url 'remove' pk=blog.pk %}" class="btn btn-primary">삭제</a>
+        <a role="button" class="btn btn-primary" href="{% url 'comment' blog.id %}">댓글</a>
+
+        <hr>
+        <div>
+          {% for comment in blog.comments.all %}
+        <p> {{ comment }} </p>
+          <div class = "button">
+            <a role="button" class="btn-outline-secondary" href="{% url 'comment_edit' blog.id comment.id %}">댓글수정</a>
+            <a role="button" class="btn-outline-danger" href="{% url 'comment_remove' blog.id comment.id %}">댓글삭제</a>
+         
+          </div>
+        {% endfor %}
+      </div>
+    </div>
+    <br>
+  {% endfor %}
+
+{% endblock %}

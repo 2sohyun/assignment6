@@ -1,0 +1,51 @@
+{% extends 'index.html' %}
+{% load staticfiles%}
+
+{% block content %}
+<h2 class="text-center text-uppercase text-secondary mb-0">해시태그 검색결과 페이지( ღ'ᴗ'ღ )</h2><br>
+<h3> ' {{ hashtag }} ' 태그가 있는 게시글 목록 </h3>
+
+    {% for blog in hashtag.blog_set.all %}
+        <div class="card">
+            <h5 class="card-header">{{ blog.title }}</h5>
+        <div class="card-body">
+            <h5 class="card-title">{{ blog.body }}</h5>
+            <p class="card-text">{{ blog.pub_date }}</p>
+        </div>
+        </div>
+    {% endfor %}
+  {% comment %} {% for blog in blogs.all %}
+    <div class="card">
+      <h5 class="card-header">{{ blog.title }}</h5>
+      <div class="card-body">
+        <h5 class="card-title">{{ blog.body }}</h5>
+        <p class="card-text">{{ blog.pub_date }}</p>
+        
+        <!-- 해시태그 목록 보이는 곳 -->
+        {% for hashtag in blog.hashtags.all %}
+          <span>{{ hashtag.name }}</span>
+        {% endfor %}
+        <br>
+        <a href="{% url 'edit' pk=blog.pk %}" class="btn btn-primary">수정</a>
+        <a href="{% url 'remove' pk=blog.pk %}" class="btn btn-primary">삭제</a>
+        <a role="button" class="btn btn-primary" href="{% url 'comment' blog.id %}">댓글</a>
+
+        <hr>
+        <div>
+        <!-- 댓글 목록 보이는 곳 -->
+          {% for comment in blog.comments.all %}
+        <p> {{ comment }} </p>
+          <div class = "button">
+            <a role="button" class="btn-outline-secondary" href="{% url 'comment_edit' blog.id comment.id %}">댓글수정</a>
+            <a role="button" class="btn-outline-danger" href="{% url 'comment_remove' blog.id comment.id %}">댓글삭제</a>
+         
+          </div>
+        {% endfor %}
+      </div>
+{% endfor %} 
+    </div>
+    <br>
+  {% endfor %} {% endcomment %}
+  
+
+{% endblock %}
